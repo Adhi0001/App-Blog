@@ -30,7 +30,8 @@ export default function PostForm({ post }) {
                 ...data,
                 featuredImage: file ? file.$id : undefined,
             });
-
+                console.log("db.post",dbPost);
+                
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
             }
@@ -42,6 +43,7 @@ export default function PostForm({ post }) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+                console.log("db",dbPost);
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);

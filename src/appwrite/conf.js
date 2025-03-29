@@ -124,7 +124,7 @@ try {
                 queries
             );
     
-            console.log("Filtered Data:", data);
+            // console.log("Filtered Data:", data);
             return data;
         } catch (error) {
             console.log("Appwrite service :: getPosts :: error", error);
