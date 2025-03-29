@@ -20,8 +20,13 @@ function Login() {
             const session = await authService.login(data)
             if (session) {
                 const userData = await authService.getCurrentUser()
-                if(userData) dispatch(authLogin(userData));
+                console.log(userData);
+                // localStorage.setItem("userId",s.userId);
+                if(userData) {
+                localStorage.setItem("userId",userData.$id);
+                dispatch(authLogin(userData));
                 navigate("/")
+                }    
             }
         } catch (error) {
             setError(error.message)

@@ -83,17 +83,52 @@ try {
         }
     }
 
-    async getPosts(queries = [Query.equal("status","active")]){
+    // async getPosts(queries = [Query.equal("status","active")]){
+    //     try {
+    //    let data = await this.databases.listDocuments(
+    //     config.appwriteDatabaseId,
+    //     config.appwriteCollectionId,
+    //     queries
+    // )
+    // console.log('data == ', data);
+    
+            
+    //         return await this.databases.listDocuments(
+    //             config.appwriteDatabaseId,
+    //             config.appwriteCollectionId,
+    //             queries
+
+    //         )
+    //     } catch(error){
+    //         console.log("Appwrite service :: getPosts :: error",error);
+    //         return false
+    //     }
+    // }
+    async getPosts(queries = [Query.equal("status", "active")]) {
         try {
-            return await this.databases.listDocuments(
+           
+            const userId = localStorage.getItem("userId");
+    
+            if (!userId) {
+                console.error("User ID not found in localStorage");
+                return false;
+            }
+    
+            
+            queries.push(Query.equal("userId", userId));
+    
+          
+            const data = await this.databases.listDocuments(
                 config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 queries
-
-            )
-        } catch(error){
-            console.log("Appwrite service :: getPosts :: error",error);
-            return false
+            );
+    
+            console.log("Filtered Data:", data);
+            return data;
+        } catch (error) {
+            console.log("Appwrite service :: getPosts :: error", error);
+            return false;
         }
     }
 
